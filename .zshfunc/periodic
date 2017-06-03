@@ -1,0 +1,7 @@
+periodic () {
+# echo " Pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164"
+# echo " In the set 0 to 258 pow(2, n) is prime when,"
+# echo "    n = 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107 and 127"
+# echo " Quod Erat Demonstradum -- Which was to be demonstrated"
+}
+

@@ -1,0 +1,6 @@
+
+precmd () {
+ echo monday 29th 1pm psych. leo.. \(bottom\)
+}
+
+

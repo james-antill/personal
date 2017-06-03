@@ -1,0 +1,4 @@
+# interface: ppp0
+use-bytes: yes
+line-display: one-line-both
+sort: 40s

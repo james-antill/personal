@@ -1,0 +1,18 @@
+chpwd () 
+{
+# if [ "x$DISPLAY" != "x" -o "$OVERRIDE_IN_X" = "yes" ]; then
+# 	xtitler "${HOST}:$PWD"
+# fi
+
+# 3.6 of the zsh FAQ...
+    [[ -t 1 ]] || return
+    case $TERM in
+      sun-cmd) print -Pn "\e]l%~\e\\"
+        ;;
+      *xterm*|rxvt|(dt|k|E)term)
+        XHOST="${HOST:s/.and.org//}"
+        XHOST="${XHOST:s/code//}"
+        print -Pn "\e]2;${XHOST}%# %~\a"
+        ;;
+    esac
+}

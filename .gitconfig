@@ -1,0 +1,31 @@
+[giggle]
+	compact-mode = false
+	main-window-geometry = 1143x765+160+53
+	main-window-maximized = false
+	main-window-view = HistoryView
+	history-view-vpane-position = 419
+	file-view-vpane-position = 186
+[color]
+	branch = auto
+	diff   = auto
+	status = auto
+[alias]
+	jtag = tag -u james@and.org
+	co = checkout
+	ci = commit
+	email = send-email origin
+	# email-yum = send-email origin/yum-3_2_X
+	kill-commit = !sh -c 'git rebase --onto "$0~1" $0'
+	# send-email1 = !sh -c 'git send-email "$0^..$0"'
+	send-email1 = "!f() { c=$1; shift; git send-email $c^..$c $@; }; f"
+	echo = "!f() { c=$1; shift; echo "$c - $2 - $3 - $@"; }; f"
+	glog  = log --graph --abbrev-commit --decorate
+	glog1 = log --graph --abbrev-commit --decorate --pretty=oneline
+	log1  = log --pretty=oneline --abbrev-commit --decorate
+	ls  = log --pretty='%h %Cgreen%an%Creset: %s%+d'
+	fgrep = grep -F
+[merge]
+	summary = 1
+[user]
+         name  = James Antill
+         email = james@and.org
