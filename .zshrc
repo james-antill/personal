@@ -191,7 +191,6 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
 # alias toggle_scrollbar='echo -n "\e[?30t"'
 
  alias rpmsrc='rpm -Uvh --define "_sourcedir `pwd`" --define "_specdir `pwd`"'
- alias rpmfiles="rpm -q --qf '[%{FILEFLAGS:fflags} %{FILEMODES:perms} %{FILENAMES}\t%{FILESIZES}\t%{FILEMTIMES:day}\n]'"
 
  # Base rsync cmds
  alias _base_orms='rsync --partial --progress -av'
@@ -214,26 +213,14 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
  alias mock='/usr/bin/mock'
  alias mockb='nice nice mock'
 
- # From: rhts-scheduler-workflows
- alias rhts-reserve='reserve_workflow.py -u james.antill@redhat.com -T 24h -S rhts.redhat.com'
- alias rhts-reserve-rhel4='rhts-reserve -f RedHatEnterpriseLinuxServer4'
- alias rhts-reserve-rhel5='rhts-reserve -f RedHatEnterpriseLinuxServer5'
- alias rhts-reserve-rhel5-x86_64='rhts-reserve-rhel5 -a x86_64'
- alias rhts-reserve-rhel5-i386='rhts-reserve-rhel5   -a i386'
- alias rhts-reserve-rhel5-GOLD='rhts-reserve -d RHEL5-Server-GOLD'
- alias rhts-reserve-rhel5-GOLD-x86_64='rhts-reserve-rhel5-GOLD -a x86_64'
- alias rhts-reserve-rhel5-GOLD-i386='rhts-reserve-rhel5-GOLD   -a i386'
- alias rhts-reserve-rhel5-U3='rhts-reserve -d RHEL5-Server-U3'
- alias rhts-reserve-rhel5-U4='rhts-reserve -d RHEL5-Server-U4'
- alias rhts-reserve-rhel5-U5='rhts-reserve -d RHEL5-Server-U5'
- alias rhts-reserve-rhel6='rhts-reserve -f RedHatEnterpriseLinuxServer6'
- alias rhts-reserve-rhel6-x86_64='rhts-reserve-rhel6 -a x86_64'
- alias rhts-reserve-rhel6-i386='rhts-reserve-rhel6   -a i386'
- alias rhts-reserve-rhel6-GOLD='rhts-reserve -d RHEL6-Server-GOLD'
- alias rhts-reserve-rhel6-GOLD-x86_64='rhts-reserve-rhel6-GOLD -a x86_64'
- alias rhts-reserve-rhel6-GOLD-i386='rhts-reserve-rhel6-GOLD   -a i386'
+ # alias bcppoker='~/work/PokerHands/bcp2sqlite.py --player=illiterat --color'
+ alias bcppoker='~/work/PokerHands/bcp2sqlite.py --player=Ih8plo8 --color'
+ alias bcppoker2d='bcppoker Documents/HandHistory/Carbon/$(date +"%Y%m%d")/*.xml'
+ alias bcppoker3d='bcppoker Documents/HandHistory/Carbon/$(date +"%Y%m%d")/*.xml Documents/HandHistory/Carbon/$(date -v-1d +"%Y%m%d")/*.xml Documents/HandHistory/Carbon/$(date -v-2d +"%Y%m%d")/*.xml'
+ alias bcppoker-1d='bcppoker Documents/HandHistory/Carbon/$(date -v-1d +"%Y%m%d")/*.xml'
+ alias bcppoker2m='bcppoker Documents/HandHistory/Carbon/$(date +"%Y%m")*/*.xml'
+ alias bcppoker-1m='bcppoker Documents/HandHistory/Carbon/$(date -v-1m +"%Y%m")*/*.xml'
 
- alias bcppoker='~/work/PokerHands/bcp2sqlite.py --player=illiterat --color'
 # -r == released
 # rhts-reserve -f RedHatEnterpriseLinuxServer5 -r -a x86_64
 
@@ -272,8 +259,9 @@ LANG=en_US.UTF-8
 LC_TIME=en_GB.UTF-8
 
  # export GOARCH=amd64
- export GOROOT=~/work/external/go-lang
- # export GOOS=linux
- # export GOBIN=/opt/go-lang/bin
+ # export GOROOT=~/work/external/go-lang
+ export GOPATH=$HOME/work/external/go-lang
+ PATH="$PATH:$GOPATH/bin"
+
 
 fi

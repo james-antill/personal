@@ -14,6 +14,7 @@ set noautoindent " let me hack damnit
 set backup " xemacs like file backup
 
 set expandtab " tag bytes are teh evil
+set tabstop=4
 
 " Git like spaces highlighting.
 let c_space_errors=1
