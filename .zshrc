@@ -171,7 +171,7 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
  alias j=jobs
  alias where='whence -a'
 
- alias jls='/bin/ls --color=auto --sort=version -F -T 0'
+ alias jls="/bin/ls --block-size=\'1 --color=auto --sort=version --time-style=long-iso -F -T 0"
  alias l='jls -ABFbhs'
  alias ll='jls -BFabhl'
  alias lsz='l --sort=size -r'
