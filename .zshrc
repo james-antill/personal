@@ -12,6 +12,11 @@ if [ ${+prompt} = 1 ] ; then
  autoload -U promptinit
  promptinit
 
+ TMOUT=16
+ TRAPALRM() {
+    zle reset-prompt
+ }
+
  # PROMPT="%m-%B%T%b-%02c-%!:%?-%# %E"
  PROMPT="%m-%B%T%b-%?-%# %E"
  # RPROMPT=" %02c"
