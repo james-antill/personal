@@ -176,7 +176,7 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
  alias ll='jls -BFabhl'
  alias lsz='l --sort=size -r'
  alias llsz='ll --sort=size -r'
- alias free='free -tok'
+ alias free='free -tk'
 
  alias cd.='cd .'
  alias cd..='cd ..'
@@ -217,6 +217,8 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
 
  alias mock='/usr/bin/mock'
  alias mockb='nice nice mock'
+
+ alias drun1='sudo docker run --rm -it'
 
  # alias bcppoker='~/work/PokerHands/bcp2sqlite.py --player=illiterat --color'
  alias bcppoker='~/work/PokerHands/bcp2sqlite.py --player=Ih8plo8 --color'
