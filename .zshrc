@@ -218,7 +218,11 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
  alias mock='/usr/bin/mock'
  alias mockb='nice nice mock'
 
- alias drun1='sudo docker run --rm -it'
+ alias drun1='docker run --rm -it'
+ alias drun1lvm='docker run --rm -v $(pwd):/mnt -it'
+ alias prun1='podman run --rm -it'
+ alias prun1lvm='podman run --rm -v $(pwd):/mnt -it'
+
 
  # alias bcppoker='~/work/PokerHands/bcp2sqlite.py --player=illiterat --color'
  alias bcppoker='~/work/PokerHands/bcp2sqlite.py --player=Ih8plo8 --color'
