@@ -1,6 +1,35 @@
 export TMPDIR=$HOME/tmp
 
+PATHxPRE="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/go/bin"
+
+if [ -x "$HOME/bin/addpath" ]; then
+    PATH="$($HOME/bin/addpath --prefix PATH $PATHxPRE)"
+else
+    PATH="$PATHxPRE:$PATH"
+fi
+
+
 if [ ${+prompt} = 1 ] ; then
+
+function powerline_precmd() {
+   PL="powerline-go"
+   PROMPT="%m-%B%T%b-%?-$($PL -shell zsh -mode compatible -modules=ssh,perms,root)%E"
+   RPROMPT="$($PL -shell zsh -mode flat -modules=cwd,git --priority root,user,host,ssh,perms,git-branch,git-status,hg,cwd,jobs,exit --cwd-max-depth 8 -right-prompt -max-width 85)"
+}
+
+function install_powerline_precmd() {
+  for s in "${precmd_functions[@]}"; do
+    if [ "$s" = "powerline_precmd" ]; then
+      return
+    fi
+  done
+  precmd_functions+=(powerline_precmd)
+}
+install_powerline_precmd
+
+ if [ ! -d $TMPDIR ]; then
+  mkdir -p $TMPDIR
+ fi
 
  export LESSOPEN="|$HOME/bin/lesspipe.sh %s"
 
@@ -171,12 +200,20 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
  alias j=jobs
  alias where='whence -a'
 
- alias jls="/bin/ls --block-size=\'1 --color=auto --sort=version --time-style=long-iso -F -T 0"
+ if [ "x$(uname -s)" = "xDarwin" ]; then
+   alias jls_=gls
+ else
+   alias jls_=/bin/ls
+ fi
+ alias jls="jls_ --block-size=\'1 --color=auto --sort=version --time-style=long-iso -F -T 0"
  alias l='jls -ABFbhs'
  alias ll='jls -BFabhl'
  alias lsz='l --sort=size -r'
  alias llsz='ll --sort=size -r'
  alias free='free -tk'
+ alias t='tree -h'
+ alias tsz='tree -h --sort=size'
+
 
  alias cd.='cd .'
  alias cd..='cd ..'
@@ -188,34 +225,34 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
  alias fgrep='fgrep --color=tty -d skip'
  alias grep='grep --color=tty -d skip'
 
-# alias wnet='telnet metaserver.ecst.csuchico.edu 3521'
-# alias xpilotm='xpilot millburn.dcs.st-and.ac.uk'
- 
-## Hack for Eterm...
-# alias toggle_menu='echo -n "\e[?10t"'
-# alias toggle_scrollbar='echo -n "\e[?30t"'
-
  alias rpmsrc='rpm -Uvh --define "_sourcedir `pwd`" --define "_specdir `pwd`"'
 
  # Base rsync cmds
- alias _base_orms='rsync --partial --progress -av'
- alias _base_nrms='_base_orms -AX'
- alias _base_orss='_base_orms --exclude="**/.git" --exclude="*.pyc" --exclude="*.pyo" --exclude="*.o" --exclude="*~"'
- alias _base_nrss='_base_orss -AX'
+ _rsync_cmd_archive='rsync --partial --info=progress2 --archive'
+ _rsync_opt_new_archive='--acls --xattrs'
+ _rsync_exclude='--exclude="**/.git" --exclude="*.pyc" --exclude="*.pyo" --exclude="*.o" --exclude="*~"'
  # Merge rsync
- alias rms='_base_nrms -e ssh'
- alias lrms='_base_nrms'
- alias orms='_base_orms -e ssh'
+ alias lrms="$_rsync_cmd_archive $_rsync_opt_new_archive"
+ alias lrmsx="lrms $_rsync_exclude"
+ alias rms='lrms -e ssh'
+ alias rmsx="lrms -e ssh $_rsync_exclude"
+ alias orms="$_rsync_cmd_archive -e ssh"
+ alias ormsx="orms $_rsync_exclude"
  # Destructive/delete rsync
- alias rds='_base_nrms --del -e ssh'
- alias lrds='_base_nrms --del'
- alias ords='_base_orms --delete -e ssh'
- # Source rsyncA
- alias rss='_base_nrss --del -e ssh'
- alias lrss='_base_nrss --del'
- alias orss='_base_orss --delete -e ssh'
+ alias rds='rms --del'
+ alias rdsx='rmsx --del'
+ alias lrds='lrms --del'
+ alias lrdsx='lrmsx --del'
+ alias ords='orms --delete'
+ alias ordsx='ormsx --delete'
 
- alias mock='/usr/bin/mock'
+ alias gmpush='git push origin main'
+ alias gmpull='git pull origin main'
+ alias gfgrep='git grep -F'
+ alias g0gover='TZ=UTC git --no-pager show --quiet --abbrev=12 \
+                           --date='format-local:%Y%m%d%H%M%S' \
+                           --format="v0.0.0-%cd-%h"'
+
  alias mockb='nice nice mock'
 
  alias drun1='docker run --rm -it'
@@ -248,7 +285,7 @@ alias hd='od -Ax -tx1z -v'
 alias realpath='readlink -f'
 
 # make and change to a directory
-md () { mkdir -p "$1" && cd "$1"; }
+mkcd () { mkdir -p "$1" && cd "$1"; }
 
  export DEV_CVS_RSH=krsh
  export CVS_RSH=$DEV_CVS_RSH
@@ -266,6 +303,10 @@ md () { mkdir -p "$1" && cd "$1"; }
    chpwd
  fi
 
+ if [ -f ~/bin/goto.sh ]; then
+   source ~/bin/goto.sh
+ fi
+
 LANG=en_US.UTF-8
 LC_TIME=en_GB.UTF-8
 
@@ -274,5 +315,6 @@ LC_TIME=en_GB.UTF-8
  export GOPATH=$HOME/work/external/go-lang
  PATH="$PATH:$GOPATH/bin"
 
+ # if [ -e /Users/james/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/james/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 fi
