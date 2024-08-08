@@ -221,9 +221,11 @@ alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
  alias cd....='cd ../../..'
  alias cd.....='cd ../../../..'
 
- alias egrep='egrep --color=tty -d skip'
- alias fgrep='fgrep --color=tty -d skip'
- alias grep='grep --color=tty -d skip'
+ alias egrep='egrep --color=auto -d skip'
+ alias fgrep='fgrep --color=auto -d skip'
+ alias grep='grep --color=auto -d skip'
+ alias pgrep='pcre2grep --color=auto -d skip'
+
 
  alias rpmsrc='rpm -Uvh --define "_sourcedir `pwd`" --define "_specdir `pwd`"'
 
